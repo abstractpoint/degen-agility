@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Bulky Pixels';
+  src: url('/fonts/bulky-pixels.regular.ttf');
+}
+
 html,
 body {
   padding: 0;
@@ -18,4 +23,8 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+.title {
+  font-family: "Bulky Pixels";
 }
