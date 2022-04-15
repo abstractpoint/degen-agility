@@ -86,7 +86,28 @@ const totalRarity = (dogAttributes: any[]) =>
     1
   );
 
-export { traits, totalRarity };
+const runningRarities = (dogs: any[]) => {
+  return dogs.reduce((mapping, dog) => {
+    const replacementMappings = dog.attributes.map((attribute: any) => {
+      const currentCount =
+        mapping[`${attribute.trait_type}#${attribute.value}`];
+      return {
+        [`${attribute.trait_type}#${attribute.value}`]: currentCount
+          ? currentCount + 1
+          : 1,
+      };
+    });
+    return {
+      ...mapping,
+      ...replacementMappings.reduce(
+        (acc: {}, each: {}) => ({ ...acc, ...each }),
+        {}
+      ),
+    };
+  }, {});
+};
+
+export { traits, totalRarity, runningRarities };
 
 // [
 // {"attributes":[

@@ -21,12 +21,16 @@ const useApi = () => {
 
     const source$ = new Observable((observer) => {
       const fetchNext = (id: number) => {
-        fetcher(id).then((res) => {
-          if (res.name) {
-            observer.next(res);
-            fetchNext(id + 1);
-          }
-        });
+        fetcher(id)
+          .then((res) => {
+            if (res.name) {
+              observer.next(res);
+              fetchNext(id + 1);
+            }
+          })
+          .catch(() => {
+            // do nothing on error
+          });
       };
       const { lastId } = localStore();
       fetchNext(lastId + 1);
